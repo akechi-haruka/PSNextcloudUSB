@@ -19,7 +19,7 @@ echo "libcomposite" | sudo tee -a /etc/modules
 echo Downloading PSNextcloudUSB...
 mkdir /opt/psnextcloudusb
 cd /opt/psnextcloudusb
-git clone <repo> .
+git clone https://github.com/akechi-haruka/PSNextcloudUSB .
 
 mvn install
 cp target/PSNextcloudUSB-build.jar PSNextcloudUSB.jar
