@@ -43,7 +43,7 @@ PSNextcloudUSB allows you to use a Raspberry Pi Zero as USB storage device that 
    * The IP address you can usually find on your router's "connected devices" list.
    * On some DNS setups, the hostname you entered during the installation process may also work.
 7. Log in with the previously entered username and password.
-8. Run following command: `<todo>`
+8. Run following command: `wget https://raw.githubusercontent.com/akechi-haruka/PSNextcloudUSB/refs/heads/master/install.sh && chmod +x install.sh && ./install.sh`
 9. Enjoy!
    * The device will turn on and off with your Playstation. This will take a minute or two until the "USB" option shows up.
    * All data stored on it will be wiped on each start.

@@ -21,6 +21,7 @@ mkdir /opt/psnextcloudusb
 cd /opt/psnextcloudusb
 git clone https://github.com/akechi-haruka/PSNextcloudUSB .
 
+echo Building...
 mvn install
 cp target/PSNextcloudUSB-build.jar PSNextcloudUSB.jar
 
