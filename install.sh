@@ -92,4 +92,4 @@ echo Finished!
 echo After the device has shut down, you can now plug it into your PS.
 read -n 1 -r -s -p "Press any key to shutdown..."
 
-reboot
+shutdown now
