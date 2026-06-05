@@ -44,7 +44,7 @@ video
    * The Pi's local IP address can usually be found on your router's "connected devices" list.
    * On some DNS setups, the hostname you entered during the installation process may also work.
 7. Log in with the previously entered username and password.
-8. Run following command: `wget https://raw.githubusercontent.com/akechi-haruka/PSNextcloudUSB/refs/heads/master/install.sh && chmod +x install.sh && ./install.sh`
+8. Run following command: `wget https://raw.githubusercontent.com/akechi-haruka/PSNextcloudUSB/refs/heads/master/install.sh && chmod +x install.sh && sudo ./install.sh`
    * If online installation is not available, download the code of this repository as a zip file, as well as install.sh, place both files in a directory and run `./install.sh PSNextcloudUSB-master.zip`
 9. Enjoy!
    * The device will turn on and off with your Playstation. This will take a minute or two until the "USB" option shows up.
