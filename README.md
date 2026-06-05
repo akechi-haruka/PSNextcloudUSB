@@ -38,23 +38,23 @@ video
 3. After installation, eject the microSD card from your PC, and insert it in the Pi.
 4. Connect the Pi to any power source.
    * If you want, you can already connect it to your PS at this point. (The PS must be turned on to supply power.)
-   * Make sure to connect the USB cable not on the "PWR IN" connector, but on the "USB" connector: <https://puu.sh/KNNVI/a795e136f3.png>
+   * Make sure to connect the USB cable not on the "PWR IN" connector, but on the "USB" connector: ![readme/connector.png](readme/connector.png)
 5. Wait for the Pi to start up. This may take several minutes.
 6. Connect to the Pi via SSH.
-   * The IP address you can usually find on your router's "connected devices" list.
+   * The Pi's local IP address can usually be found on your router's "connected devices" list.
    * On some DNS setups, the hostname you entered during the installation process may also work.
 7. Log in with the previously entered username and password.
 8. Run following command: `wget https://raw.githubusercontent.com/akechi-haruka/PSNextcloudUSB/refs/heads/master/install.sh && chmod +x install.sh && ./install.sh`
+   * If online installation is not available, download the code of this repository as a zip file, as well as install.sh, place both files in a directory and run `./install.sh PSNextcloudUSB-master.zip`
 9. Enjoy!
    * The device will turn on and off with your Playstation. This will take a minute or two until the "USB" option shows up.
    * All data stored on it will be wiped on each start.
-   * To access some utility functions, open the device's IP in a browser.
 
 # Notes
 
 * To edit the configuration after installation, either connect via SSH and edit /boot/firmware/psnextcloudusb/config.properties, or remove the SD card and edit the file from your PC.
 * To prevent uploading incomplete files, upload will only be performed if no files have been written for 5 minutes. This time limit can be changed in the configuration.
-* To change the size of the virtual USB, over SSH, run `dd status=progress if=/dev/zero of=/usbdisk.img bs=1M count=?` where ? is a number denoting the desired size in megabytes for the virtual USB storage device.
+* To change the size of the virtual USB, over SSH, run `dd if=/dev/zero of=/usbdisk.img count=0 obs=1 seek=?M` where ? is a number denoting the desired size in megabytes for the virtual USB storage device. (ex. "2000M" for 2 GB)
 
 # Direct iSCSI access
 
@@ -68,7 +68,7 @@ You can also access the temporary storage directly via iSCSI as well:
 2. Under "Target", enter your Pi's local IP address, and hit "Quick Connect..."
 3. Select "iqn.2026-06.local:psnextcloudusb" and hit "Connect"
 4. Hit Finish and OK.
-5. Open explorer 
+5. The drive should show up in Windows Explorer.
 
 # Troubleshooting
 
