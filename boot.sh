@@ -4,7 +4,7 @@ source /opt/psnextcloudusb/vars.sh
 
 timeout=30
 
-while [ ! -f $DISK ];
+while [ ! -e $DISK ];
 do
   if [ "$timeout" == 0 ]; then
     echo "ERROR: Timeout while waiting for $DISK."
@@ -12,6 +12,7 @@ do
   fi
 
   echo "Waiting for iSCSI drive to be up..."
+
   iscsiadm -m discovery -t sendtargets -p 127.0.0.1
   iscsiadm -m node -l
 
