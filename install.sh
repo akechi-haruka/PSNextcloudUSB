@@ -9,7 +9,7 @@ set -e
 
 echo Installing dependencies...
 apt update
-apt install -y openjdk-25-jdk-headless maven git tgt open-iscsi vim unzip
+apt install -y openjdk-17-jdk-headless maven git tgt open-iscsi vim unzip
 
 if [ "$#" -eq 1 ]
   then
