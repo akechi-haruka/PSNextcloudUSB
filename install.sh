@@ -49,7 +49,7 @@ read -ep 'Please enter the desired size of the temporary storage in MB: ' storag
 [[ $storage_size =~ ^[[:digit:]]+$ ]] || exit 1
 (( ( (storage_size=(10#$storage_size)) <= 9999 ) && storage_size >= 0 )) || exit 1
 
-echo "$($storage_size)M" > /boot/firmware/psnextcloudusb/disksize.txt
+echo "${storage_size}M" > /boot/firmware/psnextcloudusb/disksize.txt
 
 echo "Now opening an editor to edit the configuration file for PSNextcloudUSB"
 read -n 1 -r -s -p "Press any key to continue..."
