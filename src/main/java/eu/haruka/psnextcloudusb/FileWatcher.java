@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Stream;
@@ -65,7 +66,7 @@ public class FileWatcher implements Runnable {
                                     segments.add(parent);
                                     parent = parent.getParent();
                                 }
-                                segments = segments.reversed();
+                                Collections.reverse(segments);
 
                                 for (Path segment : segments) {
                                     if (!Main.nextcloud.folderExists(segment.toString())) {
