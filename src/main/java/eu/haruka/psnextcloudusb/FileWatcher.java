@@ -4,7 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Stream;
 
@@ -58,11 +58,22 @@ public class FileWatcher implements Runnable {
                         if (!uploaded.contains(targetName) && !targetName.contains("System Volume Information")) {
                             Main.logger.info("Uploading " + path + " to " + targetName);
                             try {
+                                List<Path> segments = new ArrayList<>();
+
                                 Path parent = target.getParent();
-                                if (!Main.nextcloud.folderExists(parent.toString())){
-                                    Main.logger.info("Creating directory: " + parent);
-                                    Main.nextcloud.createFolder(parent.toString());
+                                while (parent != null) {
+                                    segments.add(parent);
+                                    parent = parent.getParent();
                                 }
+                                segments = segments.reversed();
+
+                                for (Path segment : segments) {
+                                    if (!Main.nextcloud.folderExists(segment.toString())) {
+                                        Main.logger.info("Creating directory: " + segment);
+                                        Main.nextcloud.createFolder(segment.toString());
+                                    }
+                                }
+
                                 Main.nextcloud.uploadFile(path.toFile(), targetName);
                                 uploaded.add(targetName);
                             } catch (Exception ex) {
