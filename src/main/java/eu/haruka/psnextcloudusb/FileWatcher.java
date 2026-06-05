@@ -36,7 +36,7 @@ public class FileWatcher implements Runnable {
                 Path root = Paths.get(rootDirectory);
                 try (Stream<Path> p = Files.find(root,
                         Integer.MAX_VALUE,
-                        (_, fileAttr) -> fileAttr.isRegularFile())) {
+                        (path, fileAttr) -> fileAttr.isRegularFile())) {
                     p.forEach((path) -> {
                         lastWrite[0] = Math.max(lastWrite[0], path.toFile().lastModified());
                     });
@@ -51,7 +51,7 @@ public class FileWatcher implements Runnable {
 
                 try (Stream<Path> p = Files.find(root,
                         Integer.MAX_VALUE,
-                        (_, fileAttr) -> fileAttr.isRegularFile())) {
+                        (path, fileAttr) -> fileAttr.isRegularFile())) {
                     p.forEach((path) -> {
                         Path target = Path.of(uploadDirectory, root.relativize(path).toString());
                         String targetName = target.toString();
