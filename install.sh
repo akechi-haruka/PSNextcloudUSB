@@ -78,7 +78,7 @@ set -e
 DISK=/dev/disk/by-path/ip-127.0.0.1:3260-iscsi-iqn.2026-06.local:psnextcloudusb-lun-1
 
 echo Formatting...
-mkdosfs -n $PRODUCT $DISK
+mkdosfs -n PSNCUSB $DISK
 
 echo Verifying...
 mkdir -p /usbdisk.d
