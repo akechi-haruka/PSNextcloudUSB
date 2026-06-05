@@ -2,8 +2,11 @@
 
 source /opt/psnextcloudusb/vars.sh
 
-umount /usbdisk.d
-mkdosfs /usbdisk.img
+iscsiadm -m discovery -t sendtargets -p 127.0.0.1
+iscsiadm -m node -l
+mkdosfs -n $PRODUCT $DISK
+
+systemctl restart systemd-timesyncd.service
 
 modprobe libcomposite
 mkdir -p /sys/kernel/config/usb_gadget/$GADGETDIR
@@ -20,16 +23,17 @@ mkdir -p configs/c.1/strings/0x409
 echo "Config 1: ECM network" > configs/c.1/strings/0x409/configuration
 echo 250 > configs/c.1/MaxPower
 
-mkdir -p ${FILE/img/d}
-mount -o loop,ro -t vfat $FILE ${FILE/img/d}
 mkdir -p functions/mass_storage.usb0
 echo 1 > functions/mass_storage.usb0/stall
 echo 0 > functions/mass_storage.usb0/lun.0/cdrom
 echo 0 > functions/mass_storage.usb0/lun.0/ro
 echo 0 > functions/mass_storage.usb0/lun.0/nofua
 
-echo $FILE > functions/mass_storage.usb0/lun.0/file
+echo $DISK > functions/mass_storage.usb0/lun.0/file
 
 ln -s /sys/kernel/config/usb_gadget/$GADGETDIR/functions/mass_storage.usb0 /sys/kernel/config/usb_gadget/$GADGETDIR/configs/c.1/
 
 ls /sys/class/udc > UDC
+
+mkdir -p $LOCALMOUNT
+mount -t vfat -o ro,iocharset=utf8 $DISK $LOCALMOUNT

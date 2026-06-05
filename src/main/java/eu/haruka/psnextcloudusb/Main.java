@@ -5,6 +5,7 @@ import org.aarboard.nextcloud.api.NextcloudConnector;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.Date;
 import java.util.Properties;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
@@ -23,11 +24,16 @@ public class Main {
         config = new Properties();
         config.load(new FileReader("/boot/psnextcloudusb/config.properties"));
 
-        logger.addHandler(new FileHandler("app.log", false));
-        logger.addHandler(new ConsoleHandler());
-        logger.setLevel(Level.parse(config.getProperty("loglevel", "INFO")));
+        Level l = Level.parse(config.getProperty("loglevel", "INFO"));
+        logger.setLevel(l);
+        logger.setUseParentHandlers(false);
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(l);
+        logger.addHandler(ch);
 
         logger.info(NAME);
+        logger.info("Log level is " + logger.getLevel());
+        logger.fine(new Date() + " / " + System.currentTimeMillis());
 
         String url = config.getProperty("url");
         nextcloud = new NextcloudConnector(url,
@@ -55,6 +61,7 @@ public class Main {
         new FileWatcher(
                 config.getProperty("root_directory", "/usbdisk.d"),
                 upload_directory,
+                Integer.parseInt(config.getProperty("check_time_sec", "180")) * 1000,
                 Integer.parseInt(config.getProperty("wait_time_sec", "300")) * 1000
         ).run();
     }

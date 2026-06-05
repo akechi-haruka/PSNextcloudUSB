@@ -18,7 +18,7 @@ Wants=
 # Consult the documentantion for types (https://www.freedesktop.org/software/systemd/man/systemd.service.html#Type=) other options.
 Type=simple
 # Command with arguments to invoke when the unit is activated.
-ExecStart=java -jar /opt/psnextcloudusb/PSNextcloudUSB.jar
+ExecStart=java -cp /opt/psnextcloudusb/PSNextcloudUSB.jar eu.haruka.psnextcloudusb.Main
 # Command with arguments to invoke when the unit is deactivated.
 ExecStop=
 # Configures under what conditions the unit will be restarted.

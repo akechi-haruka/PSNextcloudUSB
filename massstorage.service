@@ -6,7 +6,7 @@ Before=
 # A list of units whose activations will occur before this unit starts.
 After=network.target
 # A list of units to activate when this one is activated, if any unit listed here fails this unit will deactivate.
-Requires=
+Requires=iscsi.service
 # A list of units to activate when this one is activated, if a unit listed here fails this unit will continue to run.
 Wants=
 

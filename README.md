@@ -10,7 +10,7 @@ Licensed under GPL v3.
 
 PSNextcloudUSB allows you to use a Raspberry Pi Zero as USB storage device that uploads all files stored on it to a Nextcloud instance, bypassing Sony's PS App compression or having to manually copy things with USB drives.
 
-<video>
+video
 
 # Requirements
 
@@ -31,6 +31,7 @@ PSNextcloudUSB allows you to use a Raspberry Pi Zero as USB storage device that 
    3. Select your microSD card.
    4. Hostname can be anything, I personally use "pstransfer"
    5. Set date and keyboard layout.
+      * You MUST set the timezone exactly the same as your Playstation's, otherwise you will have weird issues with the delay setting.
    6. Set any login that you can remember.
    7. Enter your WiFi name and password.
    8. Enable SSH.
@@ -55,23 +56,39 @@ PSNextcloudUSB allows you to use a Raspberry Pi Zero as USB storage device that 
 * To prevent uploading incomplete files, upload will only be performed if no files have been written for 5 minutes. This time limit can be changed in the configuration.
 * To change the size of the virtual USB, over SSH, run `dd status=progress if=/dev/zero of=/usbdisk.img bs=1M count=?` where ? is a number denoting the desired size in megabytes for the virtual USB storage device.
 
+# Direct iSCSI access
+
+> **Warning**
+>
+> Concurrent writing WILL break all data on the device! If that happens, unplug and replug it.
+
+You can also access the temporary storage directly via iSCSI as well:
+
+1. Run "iSCSI Initiator" from the start menu.
+2. Under "Target", enter your Pi's local IP address, and hit "Quick Connect..."
+3. Select "iqn.2026-06.local:psnextcloudusb" and hit "Connect"
+4. Hit Finish and OK.
+5. Open explorer 
+
 # Troubleshooting
 
-## <error>
+## There's no USB drive connected. CE-110207-1
 
 * Are you sure you are using the USB connector and not the power connector?
 * Try connecting the Pi to your PC and wait two minutes. Does a USB drive show up?
-* Connect to the Pi via SSH and run `journalctl -u massstorage` to check for any errors. The output should be this, with no other errors
+* Connect to the Pi via SSH and run `journalctl -u massstorage` to check for any errors. The output should be this, with no other errors ("1 session requested, but 1 already present - Could not log into all portals" can be ignored)
 
 ```
-Jun 01 13:17:36 pstransfer systemd[1]: Started massstorage.service - USB Mass Storage Gadget.
-Jun 01 13:17:37 pstransfer bash[623]: umount: /usbdisk.d: not mounted.
-Jun 01 13:17:41 pstransfer bash[624]: mkfs.fat 4.2 (2021-01-31)
-Jun 01 13:17:41 pstransfer systemd[1]: massstorage.service: Deactivated successfully.
+Jun 01 18:44:09 ptransfer systemd[1]: Started massstorage.service - USB Mass Storage Gadget.
+Jun 01 18:44:09 ptransfer bash[845]: 127.0.0.1:3260,1 iqn.2026-06.local:psnextcloudusb
+Jun 01 18:44:09 ptransfer bash[846]: iscsiadm: default: 1 session requested, but 1 already present.
+Jun 01 18:44:09 ptransfer bash[846]: iscsiadm: Could not log into all portals
+Jun 01 18:44:09 ptransfer bash[847]: mkfs.fat 4.2 (2021-01-31)
+Jun 01 18:44:09 ptransfer systemd[1]: massstorage.service: Deactivated successfully.
 ```
 
 ## Files can be written to the USB but aren't getting uploaded to Nextcloud
 
-* Remove the SD card from the Pi and connect it to your computer. Open <drive named "boot">\psnextcloudusb\config.properties and check if URL, username and password are correct
+* Remove the SD card from the Pi and connect it to your computer. Open <drive named "boot">\psnextcloudusb\config.properties and check if URL, username and password are correct.
 * Connect to the Pi via SSH and run `journalctl -u psnextcloudusb` to check for any errors.
 
