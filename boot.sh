@@ -2,7 +2,7 @@
 
 source /opt/psnextcloudusb/vars.sh
 
-timeout=30
+timeout=60
 
 while [ ! -e $DISK ];
 do
