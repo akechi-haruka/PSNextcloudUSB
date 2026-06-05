@@ -18,7 +18,7 @@ if [ "$#" -eq 1 ]
   cd /opt/psnextcloudusb
 else
   echo Downloading PSNextcloudUSB...
-  rm -r /opt/psnextcloudusb
+  rm -r /opt/psnextcloudusb || true
   mkdir /opt/psnextcloudusb
   cd /opt/psnextcloudusb
   git clone https://github.com/akechi-haruka/PSNextcloudUSB .
