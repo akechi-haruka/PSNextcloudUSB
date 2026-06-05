@@ -3,12 +3,10 @@ package eu.haruka.psnextcloudusb;
 import org.aarboard.nextcloud.api.AuthenticationConfig;
 import org.aarboard.nextcloud.api.NextcloudConnector;
 
-import java.io.File;
 import java.io.FileReader;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +20,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         config = new Properties();
-        config.load(new FileReader("/boot/psnextcloudusb/config.properties"));
+        config.load(new FileReader("/boot/firmware/psnextcloudusb/config.properties"));
 
         Level l = Level.parse(config.getProperty("loglevel", "INFO"));
         logger.setLevel(l);

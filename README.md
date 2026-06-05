@@ -52,7 +52,7 @@ video
 
 # Notes
 
-* To edit the configuration after installation, either connect via SSH and edit /boot/psnextcloudusb/config.properties, or remove the SD card and edit the file from your PC.
+* To edit the configuration after installation, either connect via SSH and edit /boot/firmware/psnextcloudusb/config.properties, or remove the SD card and edit the file from your PC.
 * To prevent uploading incomplete files, upload will only be performed if no files have been written for 5 minutes. This time limit can be changed in the configuration.
 * To change the size of the virtual USB, over SSH, run `dd status=progress if=/dev/zero of=/usbdisk.img bs=1M count=?` where ? is a number denoting the desired size in megabytes for the virtual USB storage device.
 

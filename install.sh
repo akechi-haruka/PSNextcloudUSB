@@ -42,23 +42,23 @@ systemctl enable psnextcloudusb.service
 
 echo Creating config directory...
 
-mkdir /boot/psnextcloudusb
-cp config.properties /boot/psnextcloudusb/config.properties
+mkdir /boot/firmware/psnextcloudusb
+cp config.properties /boot/firmware/psnextcloudusb/config.properties
 
 read -ep 'Please enter the desired size of the temporary storage in MB: ' storage_size
 [[ $storage_size =~ ^[[:digit:]]+$ ]] || exit 1
 (( ( (storage_size=(10#$storage_size)) <= 9999 ) && storage_size >= 0 )) || exit 1
 
-echo "$($storage_size)M" > /boot/psnextcloudusb/disksize.txt
+echo "$($storage_size)M" > /boot/firmware/psnextcloudusb/disksize.txt
 
 echo "Now opening an editor to edit the configuration file for PSNextcloudUSB"
 read -n 1 -r -s -p "Press any key to continue..."
 
 select-editor
-sensible-editor /boot/psnextcloudusb/config.properties
+sensible-editor /boot/firmware/psnextcloudusb/config.properties
 
 echo Creating storage...
-dd if=/dev/zero of=/usbdisk.img count=0 obs=1 seek="$(cat /boot/psnextcloudusb/disksize.txt)"
+dd if=/dev/zero of=/usbdisk.img count=0 obs=1 seek="$(cat /boot/firmware/psnextcloudusb/disksize.txt)"
 
 echo "Linking storage (step 1)..."
 set +e
