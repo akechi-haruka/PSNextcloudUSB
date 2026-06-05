@@ -53,4 +53,4 @@ ln -s /sys/kernel/config/usb_gadget/$GADGETDIR/functions/mass_storage.usb0 /sys/
 ls /sys/class/udc > UDC
 
 mkdir -p $LOCALMOUNT
-mount -t vfat -o ro,iocharset=utf8 $DISK $LOCALMOUNT
+mount -t vfat -o ro,iocharset=utf8,time_offset=$((`date +%:z|sed -r 's/^(.)0?(.*):0?/\1\2*60\1/'`)) $DISK $LOCALMOUNT
