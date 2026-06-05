@@ -53,6 +53,7 @@ video
 
 # Notes
 
+* During startup you may get a message from Windows saying that the USB device could not be detected. You can ignore this.
 * To edit the configuration after installation, either connect via SSH and edit /boot/firmware/psnextcloudusb/config.properties, or remove the SD card and edit the file from your PC.
 * To prevent uploading incomplete files, upload will only be performed if no files have been written for 5 minutes. This time limit can be changed in the configuration.
 * To change the size of the virtual USB, over SSH, run `dd if=/dev/zero of=/usbdisk.img count=0 obs=1 seek=?M` where ? is a number denoting the desired size in megabytes for the virtual USB storage device. (ex. "2000M" for 2 GB)
